@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="BDD Test Suite" verbose="1" parallel="tests"
+	thread-count="2" configfailurepolicy="continue">
+	<listeners>
+ 
+ <listener class-name="ListenerPackage.Listener"></listener>
+ 
+ </listeners>
+	<test name="Cucumber" annotations="JDK"
+		preserve-order="true">
+		<parameter name="browser" value="FireFox"/>
+		<classes>
+			<class name="RunnerPackage.Runnerclass" />
+		</classes>
+	</test>
+</suite>
