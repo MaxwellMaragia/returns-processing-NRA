@@ -36,7 +36,6 @@ public class steps extends BaseClass {
 
     @Given("^Open trips URL$")
     public void loadTripsLink() throws Throwable {
-        driver = BaseClass.getDriver();
         driver.get(Pro.getProperty("MRA_BackOffice_URL"));
         driver.manage().window().maximize();
     }
@@ -80,8 +79,8 @@ public class steps extends BaseClass {
     public void OpenFileReturnsLink() {
         BaseClass.waitForPageToLoad();
         WebDriverWait wait = new WebDriverWait(driver, 50);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"MenuForm:j_idt29\"]/ul/li[11]"))).click();
-        driver.findElement(By.xpath("//*[@id=\"MenuForm:j_idt29\"]/ul/li[11]/ul/li[3]")).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"MenuForm:j_idt27\"]/ul/li[11]/a"))).click();
+        driver.findElement(By.xpath("//*[@id=\"MenuForm:j_idt27\"]/ul/li[11]/ul/li[3]/a")).click();
     }
 
     @And("^Click returns filing and processing > cancel return$")
@@ -96,8 +95,8 @@ public class steps extends BaseClass {
     public void OpenLodgeReturnsLink() {
         BaseClass.waitForPageToLoad();
         WebDriverWait wait = new WebDriverWait(driver, 20);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"MenuForm:j_idt29\"]/ul/li[11]"))).click();
-        driver.findElement(By.xpath("//*[@id=\"MenuForm:j_idt29\"]/ul/li[11]/ul/li[2]")).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"MenuForm:j_idt27\"]/ul/li[11]/a"))).click();
+        driver.findElement(By.xpath("//*[@id=\"MenuForm:j_idt27\"]/ul/li[11]/ul/li[2]/a")).click();
     }
 
     @And("^Click returns filing and processing > paye credit$")
@@ -189,7 +188,9 @@ public class steps extends BaseClass {
 
     @Then("^Click search$")
     public void click_search() {
-        driver.findElement(By.id("SearchForm:j_idt42")).click();
+
+        WebDriverWait wait = new WebDriverWait(driver,30);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("SearchForm:j_idt40"))).click();
     }
 
     @Then("^Click table column \"([^\"]*)\"$")
@@ -467,7 +468,6 @@ public class steps extends BaseClass {
             Assert.assertTrue(true);
         } else {
             Assert.fail();
-
         }
     }
 
@@ -780,6 +780,30 @@ public class steps extends BaseClass {
         Thread.sleep(1000);
         driver.findElement(By.id("TestFlexibleForm:Designation")).sendKeys(designation);
         driver.findElement(By.id("TestFlexibleForm:BasicSalaryAndWages_input")).sendKeys(salary);
+    }
+
+    @Then("^Fill in PAYE details$")
+    public void fillPayeDetails() throws Throwable {
+        WebDriverWait wait = new WebDriverWait(driver,30);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("TestFlexibleForm:Designation"))).sendKeys("Software developer");
+        driver.findElement(By.id("TestFlexibleForm:BasicSalaryAndWages_input")).sendKeys("250,000");
+        driver.findElement(By.id("TestFlexibleForm:rentalAllowance_input")).sendKeys("2000");
+        driver.findElement(By.id("TestFlexibleForm:overtime_input")).sendKeys("2000");
+        driver.findElement(By.id("TestFlexibleForm:commission_input")).sendKeys("2000");
+        driver.findElement(By.id("TestFlexibleForm:pension_input")).sendKeys("2000");
+        driver.findElement(By.id("TestFlexibleForm:anyOtherAllowances_input")).sendKeys("2000");
+        driver.findElement(By.id("TestFlexibleForm:leavePassageAllowance_input")).sendKeys("2000");
+        driver.findElement(By.id("TestFlexibleForm:bonus_input")).sendKeys("2000");
+        driver.findElement(By.id("TestFlexibleForm:leaveAllowance_input")).sendKeys("2000");
+        driver.findElement(By.id("TestFlexibleForm:benefitInKind_input")).sendKeys("2000");
+        driver.findElement(By.id("TestFlexibleForm:transportAllowance_input")).sendKeys("2000");
+        driver.findElement(By.id("TestFlexibleForm:clothingAllowance_input")).sendKeys("2000");
+        driver.findElement(By.id("TestFlexibleForm:stipend_input")).sendKeys("2000");
+        driver.findElement(By.id("TestFlexibleForm:anyOtherIncome_input")).sendKeys("2000");
+        driver.findElement(By.id("TestFlexibleForm:nassitContribution_input")).sendKeys("2000");
+        driver.findElement(By.id("TestFlexibleForm:grossIncome_input")).sendKeys("2000");
+        driver.findElement(By.id("TestFlexibleForm:taxableIncome_input")).sendKeys("2000");
+        driver.findElement(By.id("TestFlexibleForm:paye_input")).sendKeys("2000");
     }
 
     @Then("^Switch to default$")

@@ -19,44 +19,44 @@ Feature: [SUC:09-01]-Lodge Paper Return
     Then Click Cancel "SearchForm:Cancel"
     Examples:
       | Tin                     | TaxpayerName                     | TradingName                     | ReturnDocument                 | Period                       | LodgementDate                           | SaveButton                     | cancelButton            | TinDocumentSearch | PeriodNumber            | PeriodYear            | search             | cancel            | continue          | TinColumn | TaxpayerNameColumn | DocumenttypeColumn | PeriodNumberColumn | PeriodYearColumn |
-      | ReturnsLodgement:id_Tin | ReturnsLodgement:id_TaxpayerName | ReturnsLodgement:id_TradingName | ReturnsLodgement:id_ReturnType | ReturnsLodgement:id_PeriodId | ReturnsLodgement:id_LodgementDate_input | ReturnsLodgement:SaveLodgement | ReturnsLodgement:Cancel | SearchForm:TIN    | SearchForm:PeriodNumber | SearchForm:PeriodYear | SearchForm:j_idt42 | SearchForm:Cancel | SearchForm:j_id14 | TIN       | Taxpayer Name      | Document Type      | PeriodNumber       | Period Year      |
+      | ReturnsLodgement:id_Tin | ReturnsLodgement:id_TaxpayerName | ReturnsLodgement:id_TradingName | ReturnsLodgement:id_ReturnType | ReturnsLodgement:id_PeriodId | ReturnsLodgement:id_LodgementDate_input | ReturnsLodgement:SaveLodgement | ReturnsLodgement:Cancel | SearchForm:TIN    | SearchForm:PeriodNumber | SearchForm:PeriodYear | SearchForm:j_idt21 | SearchForm:Cancel | SearchForm:j_id14 | TIN       | Taxpayer Name      | Document Type      | PeriodNumber       | Period Year      |
 
 
   @SUC:09-01 @UAT_M4-01-02 @UAT_M4-01-03 @UAT_M4-08-01 @UAT_M4-08-03 @BR01 @BR05
-  Scenario Outline: UAT_M4-01-02-Verify the process of Lodge Paper Return (FOF)
+  Scenario Outline: UAT_M4-01-02-Verify the process of Lodge Paper Return for "<ReturnDocument>"
     Given Open trips URL
     Then Login as Revenue Officer
       | tripsuser | Passw0rd |
     And Click on return filing and processing > Lodge return
     Then Click Return document search button
     Then Switch to frame
-    Then Search for document with by filling Tin as "" Return document as "<ReturnDocument>" Period number as "" and Period year as ""
-    Then Click search button "SearchForm:j_idt42"
+    Then Search for document with by filling Tin as "" Return document as "<ReturnDocument>" Period number as "<Period>" and Period year as "<Year>"
+    Then Click search button "SearchForm:j_idt21"
     Then Click table column "//*[@id='SearchForm:resultsDataTable_data']/tr[1]/td[4]"
     Then Click continue "SearchForm:j_id14"
-    Then Verify nill return check box is present
+#    Then Verify nill return check box is present
     Then Click Submit: xpath "//*[@id='ReturnsLodgement:SaveLodgement']"
     Then Verify error message "Liability - Value required."
     Then Enter liability as "9000.00" and date of lodgement as ""
     Then Click Submit: xpath "//*[@id='ReturnsLodgement:SaveLodgement']"
-#    Then Switch to frame
-#    Then Close print modal
-    Then Verify save success message "Returns Lodgement is Successfull with Reference Number"
+    Then Switch to frame
+    Then Close print modal
+    Then Verify save success message "Returns Lodgement is Successful with Reference Number"
     Examples:
-      | ReturnDocument                  |
-      | Capital Gain Tax(CGT) Return    |
-      | Company Income Tax(CIT) Return  |
-      | Dividend Tax Return             |
-      | Domestic Excise Return          |
-      | Domestic VAT Return             |
-      | Fringe Benefit Tax Return       |
-      | Non Resident Tax(NRT) Return    |
-      | PAYE Tax Return                 |
-      | Personal Income Tax(PIT) Return |
-      | Provisional Tax(CIT) Return     |
-      | Provisional Tax(PIT) Return     |
-      | Turnover Tax(TOT) Return        |
-      | Withholding Tax(WHT) Return     |
+      | ReturnDocument           | Year | Period |
+      | CIT Return (Final)       | 2019 | 1      |
+      | CIT Return (Provisional) | 2019 | 1      |
+      | Capital Gains Tax Return |      |        |
+#      | Excise Tax Return        |      |     |
+#      | FTT Return               |      ||
+      | GST Return               | 2019 | 1      |
+      | PAYE Returns             | 2019 | 1      |
+      | PIT Return (Final)       | 2019 | 1      |
+      | PIT Return (Provisional) | 2019 | 1      |
+#      | Payroll Tax Return       |  ||
+      | Rental income Return     | 2020 | 1      |
+#      | WHT 10.5% Return         |     ||
+#      | WHT 5.5% Return          |     ||
       #Returns Lodgement is Late
 
 
@@ -69,10 +69,10 @@ Feature: [SUC:09-01]-Lodge Paper Return
     Then Click Return document search button
     Then Switch to frame
     #Then Search for document with by filling Tin as "" Return document as "PAYE Tax Return" Period number as "1" and Period year as "2018"
-    Then Click search button "SearchForm:j_idt42"
+    Then Click search button "SearchForm:j_idt21"
     Then Verify error message "At least one field is required"
     Then Search for document with by filling Tin as "" Return document as "Domestic Excise Return" Period number as "" and Period year as ""
-    Then Click search button "SearchForm:j_idt42"
+    Then Click search button "SearchForm:j_idt21"
     Then Click table column "//*[@id='SearchForm:resultsDataTable_data']/tr[1]/td[4]"
     Then Click continue "SearchForm:j_id14"
     Then Enter liability as "-9000.00" and date of lodgement as ""
@@ -82,7 +82,7 @@ Feature: [SUC:09-01]-Lodge Paper Return
     Then Click Return document search button
     Then Switch to frame
     Then Search for document with by filling Tin as "C0020061" Return document as "Provisional Tax(PIT) Return" Period number as "1" and Period year as "2020"
-    Then Click search button "SearchForm:j_idt42"
+    Then Click search button "SearchForm:j_idt21"
     Then Enter liability as "9000.00" and date of lodgement as "today"
     Then Click Submit: xpath "//*[@id='ReturnsLodgement:SaveLodgement']"
     Then Verify error message "A Return already submitted for the same Taxpayer and Period is under process."
@@ -97,7 +97,7 @@ Feature: [SUC:09-01]-Lodge Paper Return
     Then Click Return document search button
     Then Switch to frame
     Then Search for document with by filling Tin as "" Return document as "<ReturnDocument>" Period number as "7" and Period year as "2019"
-    Then Click search button "SearchForm:j_idt42"
+    Then Click search button "SearchForm:j_idt21"
     Then Click table column "//*[@id='SearchForm:resultsDataTable_data']/tr[1]/td[4]"
     Then Click continue "SearchForm:j_id14"
     Then Enter lodgement date as "21/09/2018"
@@ -110,7 +110,7 @@ Feature: [SUC:09-01]-Lodge Paper Return
     Then Click Return document search button
     Then Switch to frame
     Then Search for document with by filling Tin as "" Return document as "<ReturnDocument>" Period number as "1" and Period year as "2019"
-    Then Click search button "SearchForm:j_idt42"
+    Then Click search button "SearchForm:j_idt21"
     Then Click table column "//*[@id='SearchForm:resultsDataTable_data']/tr[1]/td[4]"
     Then Click continue "SearchForm:j_id14"
     Then Enter liability as "9000.00" and date of lodgement as "today"
@@ -133,7 +133,7 @@ Feature: [SUC:09-01]-Lodge Paper Return
     Then Click Return document search button
     Then Switch to frame
     Then Search for document with only Tin as "P0019361"
-    Then Click search button "SearchForm:j_idt42"
+    Then Click search button "SearchForm:j_idt21"
     Then Verify no data is found in table
 
 

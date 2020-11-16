@@ -10,7 +10,7 @@ Feature: [SUC:09-02]-Process Paper Form
   Scenario Outline: UAT_M4-02-06-Verify the Process Paper Form-PAYE Return
     Then Select return document as "<ReturnDocument>"
     Then Click next "FormSelection:nextReturnButton"
-    Then Enter tin as "" and period number as "" and year as "2019"
+    Then Enter tin as "" and period number as "" and year as ""
     Then Click search
     Then Click table column "//*[@id='SearchForm:resultsDataTable_data']/tr[2]/td[7]"
     Then Click continue "SearchForm:j_id14"
@@ -19,16 +19,17 @@ Feature: [SUC:09-02]-Process Paper Form
     Then Click search button "TestFlexibleForm:j_id3"
     Then Switch to default
     Then Switch to frame 2
-    Then Find entity by Tin "C0019359"
+    Then Find entity by Tin "P0017167"
     Then Click search button "SearchForm:j_idt42"
     Then Switch to frame
-    Then Enter designation as "Software developer" and basic salary as "245000"
+#    Then Enter designation as "Software developer" and basic salary as "245000"
+    Then Fill in PAYE details
     Then Click ok
     Then Fill in declaration fields name as "DR HAMISI", designation as "Software developer", declaration date as "01/01/2018"
     Then Click Submit: xpath "//*[@id='FlexibleFormEntity:save']"
     Then Verify save success message "Record successfully saved with reference number"
     Examples:
-      | ReturnDocument                  |
+      | ReturnDocument |
 #      | Capital Gain Tax(CGT) Return    |
 #      | Company Income Tax(CIT) Return  |
 #      | Dividend Tax Return             |
@@ -37,7 +38,7 @@ Feature: [SUC:09-02]-Process Paper Form
 #      | Fringe Benefit Tax Return       |
 #      | Non Resident Tax(NRT) Return    |
 #      | Fringe Benefit Tax Return       |
-      | PAYE Tax Return                 |
+      | PAYE Returns   |
 #      | Personal Income Tax(PIT) Return |
 #      | Provisional Tax(CIT) Return     |
 #      | Provisional Tax(PIT) Return     |
