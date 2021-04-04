@@ -8,7 +8,7 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
 	features = {"src/test/java/Features"},
 	glue = "Steps",
-	tags = "@UAT_M4-02-06",
+	tags = "@UAT_M4-01-03",
 	plugin = {"com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"},
 	dryRun = false,
 	monochrome = true

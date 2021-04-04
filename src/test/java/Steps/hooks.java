@@ -22,7 +22,7 @@ public class hooks extends BaseClass {
     public void before(Scenario scenario) throws IOException {
 
         this.scenario = scenario;
-        //driver = BaseClass.getDriver();
+        driver = BaseClass.getDriver();
 
     }
 
