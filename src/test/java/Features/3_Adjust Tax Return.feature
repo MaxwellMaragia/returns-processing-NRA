@@ -6,7 +6,7 @@ Feature: [SUC:09-10] Adjust Tax Return
       | tripsuser | Passw0rd |
     And Click returns filing and processing > adjust return
 
-  @SUC:09-10 @UAT_M4-10-01 @UAT_M4-10-02 @UAT_M4-08-02 @UAT_M4-08-05
+  @SUC:09-10 @UAT_M4-10-01 @UAT_M4-10-02 @UAT_M4-08-02 @UAT_M4-08-05 @sanity
   Scenario Outline: UAT_M4-10-02 Verify the Process of Return Adjustment for <ReturnDocument>
     Then Select return document as "<ReturnDocument>"
     Then Click next "FormSelection:nextReturnButton"
@@ -30,14 +30,14 @@ Feature: [SUC:09-10] Adjust Tax Return
     Then Application Tax return Adjustment status should be "Approved"
     Examples:
       | ReturnDocument              | Year | Period | Tin        |
-      | CIT Return (Final)          | 2020 | 1      | 1000026000 |
-      | Capital Gains Tax Return    |      |        | 1000024202 |
-      | Excise Tax Return           | 2020 | 10     | 1000024202 |
-      | FTT Return                  | 2020 | 10     | 1000024202 |
-#      | GST Return                  | 2020 | 9      | 1000024202 |
-#      | PAYE Returns                | 2020 | 9      | 1000024202 |
-      | PIT Return (Final)          | 2020 | 1      | 1000025004 |
-      | Payroll Tax Return          | 2020 | 9      | 1000024202 |
+#      | CIT Return (Final)          | 2020 | 1      | 1000026000 |
+#      | Capital Gains Tax Return    |      |        | 1000024202 |
+#      | Excise Tax Return           | 2020 | 10     | 1000024202 |
+#      | FTT Return                  | 2020 | 10     | 1000024202 |
+      | GST Return                  | 2020 | 9      | 1000030601 |
+      | PAYE Returns                | 2020 | 9      | 1000030601 |
+#      | PIT Return (Final)          | 2020 | 1      | 1000025004 |
+#      | Payroll Tax Return          | 2020 | 9      | 1000024202 |
 #      | Rental income Return        | 2020 | 9      | 1000024202 |
 #      | WHT (10.5% and 5.5%) Return | 2020 | 9      | 1000024202 |
 

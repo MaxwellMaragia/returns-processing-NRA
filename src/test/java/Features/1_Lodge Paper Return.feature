@@ -22,7 +22,7 @@ Feature: [SUC:09-01]-Lodge Paper Return
       | ReturnsLodgement:id_Tin | ReturnsLodgement:id_TaxpayerName | ReturnsLodgement:id_TradingName | ReturnsLodgement:id_ReturnType | ReturnsLodgement:id_PeriodId | ReturnsLodgement:id_LodgementDate_input | ReturnsLodgement:SaveLodgement | ReturnsLodgement:Cancel | SearchForm:TIN    | SearchForm:PeriodNumber | SearchForm:PeriodYear | SearchForm:j_idt21 | SearchForm:Cancel | SearchForm:j_id14 | TIN       | Taxpayer Name      | Document Type      | PeriodNumber       | Period Year      |
 
 
-  @SUC:09-01 @UAT_M4-01-02 @UAT_M4-01-03 @UAT_M4-08-01 @UAT_M4-08-03 @BR01 @BR05
+  @SUC:09-01 @UAT_M4-01-02 @UAT_M4-01-03 @UAT_M4-08-01 @UAT_M4-08-03 @BR01 @BR05 @sanity
   Scenario Outline: UAT_M4-01-02-Verify the process of Lodge Paper Return for <ReturnDocument>
     Given Open trips URL
     Then Login as Revenue Officer
@@ -41,27 +41,27 @@ Feature: [SUC:09-01]-Lodge Paper Return
     Then Click Submit: xpath "//*[@id='ReturnsLodgement:SaveLodgement']"
     Then Verify save success message "Returns Lodgement is Successful with Reference Number"
     Then Verify and obtain ARN "<Arn>"
-    Then go to taxpayer accounting > taxpayer account inquiry
-    Then Search for tin "<Tin>"
-    Then Search for taxtype "<Taxtype>"
-    Then Verify taxtype data is shown in table "Taxtype"
-    Then Verify status is "lodged"
-    Then Click on case
-    Then Verify lodgement screen has data
+#    Then go to taxpayer accounting > taxpayer account inquiry
+#    Then Search for tin "<Tin>"
+#    Then Search for taxtype "<Taxtype>"
+#    Then Verify taxtype data is shown in table "<ReturnDocument>"
+#    Then Verify status is "lodged"
+#    Then Click on case
+#    Then Verify lodgement screen has data
     Examples:
       | ReturnDocument              | Year | Period | Tin        | Arn   | Taxtype                       |
-      | CIT Return (Provisional)    | 2020 | 1      | 1000025802 | CIRP  | Company Income Tax            |
-      | CIT Return (Final)          | 2020 | 1      | 1000026000 | CIRT  | Company Income Tax            |
-      | Capital Gains Tax Return    |      |        | 1000024202 | CGTR  | Capital Gains Tax             |
-      | Excise Tax Return           | 2020 | 10     | 1000024202 | ETRR  | Excise Tax                    |
-      | FTT Return                  | 2020 | 10     | 1000024202 | FTTR  | Foreign Travel Tax            |
-      | GST Return                  | 2020 | 10     | 1000024202 | GSTR  | Goods and Services Tax        |
-      | PAYE Returns                | 2020 | 10     | 1000024202 | PAYER | Pay As You Earn               |
-      | PIT Return (Provisional)    | 2020 | 1      | 1000024202 | PIRP  | Personal Income Tax           |
-      | PIT Return (Final)          | 2020 | 1      | 1000025004 | PIRF  | Personal Income Tax           |
-      | Payroll Tax Return          | 2020 | 10     | 1000024202 | PTRR  | Payroll Tax                   |
-      | Rental income Return        | 2020 | 10     | 1000024202 | RITR  | Rental Income Tax             |
-      | WHT (10.5% and 5.5%) Return | 2020 | 10     | 1000024202 | WHT   | Withholding Tax(5.5% & 10.5%) |
+#      | CIT Return (Provisional)    | 2020 | 1      | 1000025802 | CIRP  | Company Income Tax            |
+#      | CIT Return (Final)          | 2020 | 1      | 1000026000 | CIRT  | Company Income Tax            |
+#      | Capital Gains Tax Return    |      |        | 1000030407 | CGTR  | Capital Gains Tax             |
+#      | Excise Tax Return           | 2021 | 4     | N0000036196 | ETRR  | Excise Tax                    |
+#      | FTT Return                  | 2020 | 10     | 1000024202 | FTTR  | Foreign Travel Tax            |
+      | GST Return                  | 2020 | 9     | 1000030601 | GSTR  | Goods and Services Tax        |
+      | PAYE Returns                | 2020 | 9     | 1000030601 | PAYER | Pay As You Earn               |
+#     | PIT Return (Provisional)    | 2020 | 1      | 1000030407 | PIRP  | Personal Income Tax           |
+#      | PIT Return (Final)          | 2020 | 1      | 1000025004 | PIRF  | Personal Income Tax           |
+#      | Payroll Tax Return          | 2020 | 10     | 1000024202 | PTRR  | Payroll Tax                   |
+  #    | Rental income Return        | 2020 | 9     | 1000030407 | RITR  | Rental Income Tax             |
+#      | WHT (10.5% and 5.5%) Return | 2020 | 10     | 1000024202 | WHT   | Withholding Tax(5.5% & 10.5%) |
 
 
 
