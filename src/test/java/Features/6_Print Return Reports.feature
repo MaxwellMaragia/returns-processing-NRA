@@ -6,7 +6,7 @@ Feature: [SUC:09-09] Print Return Reports
       | tripsuser | Passw0rd |
     And Click reporting > reports
 
-  @SUC:09-09 @UAT_M4-09-01 @BR01
+  @SUC:09-09 @UAT_M4-09-01 @BR01 @sanity
   Scenario: UAT_M4-09-01 Verify the Process of Print Reports- Error Returns
     Then Select report to print "Error Returns"
     Then Enter start date as "01/08/2020"
@@ -14,9 +14,9 @@ Feature: [SUC:09-09] Print Return Reports
     Then Select tax office "Balaka"
     Then Select return type
     Then Click run report "frmReportDetails:RunReport"
-    Then Verify file "Error Returns.pdf" has been downloaded in downloads directory "C:\\Users\\maxma\\Downloads"
+    Then Verify file "Error Returns.pdf" has been downloaded in downloads directory "C:\\Users\\Maxipain\\Downloads"
 
-  @SUC:09-09 @UAT_M4-09-02 @BR01
+  @SUC:09-09 @UAT_M4-09-02 @BR01 @Sanity
   Scenario: UAT_M4-09-02 Verify the Process of Print Reports-Return Activity Report
     Then Select report to print "Return Activity Report"
     Then Enter start date as "01/08/2020"
@@ -24,7 +24,7 @@ Feature: [SUC:09-09] Print Return Reports
     Then Select tax office "Balaka"
     Then Select return type
     Then Click run report "frmReportDetails:RunReport"
-    Then Verify file "Return Activity Report.pdf" has been downloaded in downloads directory "C:\\Users\\maxma\\Downloads"
+    Then Verify file "Return Activity Report.pdf" has been downloaded in downloads directory "C:\\Users\\Maxipain\\Downloads"
 
   @SUC:09-09 @UAT_M4-09-03 @BR01
   Scenario: UAT_M4-09-03 Verify the Process of Print Reports-Returns Lodged And Not Keyed
@@ -34,7 +34,7 @@ Feature: [SUC:09-09] Print Return Reports
     Then Select tax office "Balaka"
     Then Select return type two
     Then Click run report "frmReportDetails:RunReport"
-    Then Verify file "Returns Lodged And Not Keyed.pdf" has been downloaded in downloads directory "C:\\Users\\maxma\\Downloads"
+    Then Verify file "Returns Lodged And Not Keyed.pdf" has been downloaded in downloads directory "C:\\Users\\Maxipain\\Downloads"
 
   @SUC:09-09 @UAT_M4-09-13
   Scenario: UAT_M4-09-13 Verify the Process of Validation Error

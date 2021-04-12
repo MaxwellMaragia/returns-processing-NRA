@@ -22,7 +22,7 @@ Feature: [SUC:09-01]-Lodge Paper Return
       | ReturnsLodgement:id_Tin | ReturnsLodgement:id_TaxpayerName | ReturnsLodgement:id_TradingName | ReturnsLodgement:id_ReturnType | ReturnsLodgement:id_PeriodId | ReturnsLodgement:id_LodgementDate_input | ReturnsLodgement:SaveLodgement | ReturnsLodgement:Cancel | SearchForm:TIN    | SearchForm:PeriodNumber | SearchForm:PeriodYear | SearchForm:j_idt21 | SearchForm:Cancel | SearchForm:j_id14 | TIN       | Taxpayer Name      | Document Type      | PeriodNumber       | Period Year      |
 
 
-  @SUC:09-01 @UAT_M4-01-02 @UAT_M4-01-03 @UAT_M4-08-01 @UAT_M4-08-03 @BR01 @BR05
+  @SUC:09-01 @UAT_M4-01-02 @UAT_M4-01-03 @UAT_M4-08-01 @UAT_M4-08-03 @BR01 @BR05 @sanity
   Scenario Outline: UAT_M4-01-02-Verify the process of Lodge Paper Return for <ReturnDocument>
     Given Open trips URL
     Then Login as Revenue Officer
@@ -61,11 +61,6 @@ Feature: [SUC:09-01]-Lodge Paper Return
 #      | PIT Return (Final)          | 2020 | 1      | 1000025004 | PIRF  | Personal Income Tax           |
 #      | Payroll Tax Return          | 2020 | 10     | 1000024202 | PTRR  | Payroll Tax                   |
 #      | Rental income Return        | 2020 | 10     | 1000024202 | RITR  | Rental Income Tax             |
-#      | WHT (10.5% and 5.5%) Return | 2020 | 10     | 1000024202 | WHT   | Withholding Tax(5.5% & 10.5%) |
-
-
-
-      #Returns Lodgement is Late
 
 
   @SUC:09-01 @UAT_M4-01-04 @BU04 @BU06

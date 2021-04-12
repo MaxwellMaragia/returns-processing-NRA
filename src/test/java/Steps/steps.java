@@ -1776,12 +1776,16 @@ public class steps extends BaseClass {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"AccountEnquiry:TaxTypeAccount\"]/div[3]"))).click();
         Thread.sleep(1500);
         driver.findElement(By.xpath("//li[contains(text(),'"+taxtype+"')]")).click();
+        Thread.sleep(1500);
+        driver.findElement(By.id("AccountEnquiry:j_idt64")).click();
+
     }
 
 
     @Then("Verify taxtype data is shown in table {string}")
     public void verifyTaxtypeDataIsShownInTable(String taxtype) {
         WebDriverWait wait = new WebDriverWait(driver,60);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"AccountEnquiry:periodicTable_data\"]/tr[1]/td[1]/div"))).click();
         WebElement successMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[contains(text(),'" + taxtype + "')]")));
 
         if (successMessage.isDisplayed()) {

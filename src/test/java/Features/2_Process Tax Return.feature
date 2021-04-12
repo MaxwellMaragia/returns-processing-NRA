@@ -1,6 +1,6 @@
 Feature: [SUC:09-06]-Process Tax Return
 
-  @SUC:09-06 @UAT_M4-06-01 @UAT_M4-02-11
+  @SUC:09-06 @UAT_M4-06-01 @UAT_M4-02-11 @sanity
   Scenario Outline: UAT_M4-06-01-Verify the Process of Process Tax Return <ReturnDocument>
     Given Open trips URL
     Then Login as Revenue Officer
@@ -18,18 +18,18 @@ Feature: [SUC:09-06]-Process Tax Return
 
     Examples:
       | ReturnDocument              | Year | Period | Tin        |
-      | CIT Return (Provisional)    | 2020 | 1      | 1000025802 |
-      | CIT Return (Final)          | 2020 | 1      | 1000026000 |
-      | Capital Gains Tax Return    |      |        | 1000024202 |
-      | Excise Tax Return           | 2020 | 10     | 1000024202 |
-      | FTT Return                  | 2020 | 10     | 1000024202 |
-      | GST Return                  | 2020 | 9      | 1000024202 |
-      | PAYE Returns                | 2020 | 9      | 1000024202 |
-      | PIT Return (Provisional)    | 2020 | 1      | 1000024202 |
-      | PIT Return (Final)          | 2020 | 1      | 1000025004 |
-      | Payroll Tax Return          | 2020 | 9      | 1000024202 |
-      | Rental income Return        | 2020 | 9      | 1000024202 |
-      | WHT (10.5% and 5.5%) Return | 2020 | 9      | 1000024202 |
+#      | CIT Return (Provisional)    | 2020 | 1      | 1000025802 |
+#      | CIT Return (Final)          | 2020 | 1      | 1000026000 |
+#      | Capital Gains Tax Return    |      |        | 1000024202 |
+#      | Excise Tax Return           | 2020 | 10     | 1000024202 |
+#      | FTT Return                  | 2020 | 10     | 1000024202 |
+      | GST Return                  | 2020 | 9      | 1000030601 |
+      | PAYE Returns                | 2020 | 9      | 1000030601 |
+#      | PIT Return (Provisional)    | 2020 | 1      | 1000024202 |
+#      | PIT Return (Final)          | 2020 | 1      | 1000025004 |
+#      | Payroll Tax Return          | 2020 | 9      | 1000024202 |
+#      | Rental income Return        | 2020 | 9      | 1000024202 |
+#      | WHT (10.5% and 5.5%) Return | 2020 | 9      | 1000024202 |
 
 
 #  @SUC:09-06 @UAT_M4-06-02
