@@ -27,41 +27,41 @@ Feature: [SUC:09-01]-Lodge Paper Return
     Given Open trips URL
     Then Login as Revenue Officer
       | tripsuser | Passw0rd |
-    And Click on return filing and processing > Lodge return
-    Then Click Return document search button
-    Then Switch to frame
-    Then Search for document with by filling Tin as "<Tin>" Return document as "<ReturnDocument>" Period number as "<Period>" and Period year as "<Year>"
-    Then Click search button "SearchForm:j_idt21"
-#    Then Click table column "//*[@id='SearchForm:resultsDataTable_data']/tr[1]/td[4]"
-#    Then Click continue "SearchForm:j_id14"
-#    Then Verify nill return check box is present
-    Then Click Submit: xpath "//*[@id='ReturnsLodgement:SaveLodgement']"
-    Then Verify error message "Liability - Value required."
-    Then Enter liability as "9000.00" and date of lodgement as ""
-    Then Click Submit: xpath "//*[@id='ReturnsLodgement:SaveLodgement']"
-    Then Verify save success message "Returns Lodgement is Successful with Reference Number"
-    Then Verify and obtain ARN "<Arn>"
+#    And Click on return filing and processing > Lodge return
+#    Then Click Return document search button
+#    Then Switch to frame
+#    Then Search for document with by filling Tin as "<Tin>" Return document as "<ReturnDocument>" Period number as "<Period>" and Period year as "<Year>"
+#    Then Click search button "SearchForm:j_idt21"
+##    Then Click table column "//*[@id='SearchForm:resultsDataTable_data']/tr[1]/td[4]"
+##    Then Click continue "SearchForm:j_id14"
+##    Then Verify nill return check box is present
+#    Then Click Submit: xpath "//*[@id='ReturnsLodgement:SaveLodgement']"
+#    Then Verify error message "Liability - Value required."
+#    Then Enter liability as "9000.00" and date of lodgement as ""
+#    Then Click Submit: xpath "//*[@id='ReturnsLodgement:SaveLodgement']"
+#    Then Verify save success message "Returns Lodgement is Successful with Reference Number"
+#    Then Verify and obtain ARN "<Arn>"
     Then go to taxpayer accounting > taxpayer account inquiry
     Then Search for tin "<Tin>"
     Then Search for taxtype "<Taxtype>"
-    Then Verify taxtype data is shown in table "Taxtype"
+    Then Verify taxtype data is shown in table "<Taxtype>"
     Then Verify status is "lodged"
     Then Click on case
     Then Verify lodgement screen has data
     Examples:
       | ReturnDocument              | Year | Period | Tin        | Arn   | Taxtype                       |
-      | CIT Return (Provisional)    | 2020 | 1      | 1000025802 | CIRP  | Company Income Tax            |
-      | CIT Return (Final)          | 2020 | 1      | 1000026000 | CIRT  | Company Income Tax            |
-      | Capital Gains Tax Return    |      |        | 1000024202 | CGTR  | Capital Gains Tax             |
-      | Excise Tax Return           | 2020 | 10     | 1000024202 | ETRR  | Excise Tax                    |
-      | FTT Return                  | 2020 | 10     | 1000024202 | FTTR  | Foreign Travel Tax            |
-      | GST Return                  | 2020 | 10     | 1000024202 | GSTR  | Goods and Services Tax        |
-      | PAYE Returns                | 2020 | 10     | 1000024202 | PAYER | Pay As You Earn               |
-      | PIT Return (Provisional)    | 2020 | 1      | 1000024202 | PIRP  | Personal Income Tax           |
-      | PIT Return (Final)          | 2020 | 1      | 1000025004 | PIRF  | Personal Income Tax           |
-      | Payroll Tax Return          | 2020 | 10     | 1000024202 | PTRR  | Payroll Tax                   |
-      | Rental income Return        | 2020 | 10     | 1000024202 | RITR  | Rental Income Tax             |
-      | WHT (10.5% and 5.5%) Return | 2020 | 10     | 1000024202 | WHT   | Withholding Tax(5.5% & 10.5%) |
+#      | CIT Return (Provisional)    | 2020 | 1      | 1000025802 | CIRP  | Company Income Tax            |
+      | CIT Return (Final)          | 2020 | 1      | 1000024407 | CIRT  | Company Income Tax            |
+#      | Capital Gains Tax Return    |      |        | 1000024202 | CGTR  | Capital Gains Tax             |
+#      | Excise Tax Return           | 2020 | 10     | 1000024202 | ETRR  | Excise Tax                    |
+#      | FTT Return                  | 2020 | 10     | 1000024202 | FTTR  | Foreign Travel Tax            |
+#      | GST Return                  | 2020 | 10     | 1000024202 | GSTR  | Goods and Services Tax        |
+#      | PAYE Returns                | 2020 | 10     | 1000024202 | PAYER | Pay As You Earn               |
+#      | PIT Return (Provisional)    | 2020 | 1      | 1000024202 | PIRP  | Personal Income Tax           |
+#      | PIT Return (Final)          | 2020 | 1      | 1000025004 | PIRF  | Personal Income Tax           |
+#      | Payroll Tax Return          | 2020 | 10     | 1000024202 | PTRR  | Payroll Tax                   |
+#      | Rental income Return        | 2020 | 10     | 1000024202 | RITR  | Rental Income Tax             |
+#      | WHT (10.5% and 5.5%) Return | 2020 | 10     | 1000024202 | WHT   | Withholding Tax(5.5% & 10.5%) |
 
 
 
