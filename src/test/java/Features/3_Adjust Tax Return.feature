@@ -17,6 +17,7 @@ Feature: [SUC:09-10] Adjust Tax Return
     Then Click Submit: xpath "//*[@id='FlexibleFormEntity:save']"
     Then Confirm saved success message "Tax return has been successfully saved.The status is now pending approval."
     Then Obtain reference number "Tax return has been successfully saved.The status is now pending approval."
+    Then Verify ARN "<Arn>"
     Given Open CRM URL for Returns Module
     And Close Popup Window
     And Click on Case management dropdown
@@ -29,17 +30,20 @@ Feature: [SUC:09-10] Adjust Tax Return
     And click save on returns
     Then Application Tax return Adjustment status should be "Approved"
     Examples:
-      | ReturnDocument              | Year | Period | Tin        |
-#      | CIT Return (Final)          | 2020 | 1      | 1000026000 |
-#      | Capital Gains Tax Return    |      |        | 1000024202 |
-#      | Excise Tax Return           | 2020 | 10     | 1000024202 |
-#      | FTT Return                  | 2020 | 10     | 1000024202 |
-      | GST Return                  | 2020 | 9      | 1000030601 |
-      | PAYE Returns                | 2020 | 9      | 1000030601 |
-#      | PIT Return (Final)          | 2020 | 1      | 1000025004 |
-#      | Payroll Tax Return          | 2020 | 9      | 1000024202 |
-#      | Rental income Return        | 2020 | 9      | 1000024202 |
-#      | WHT (10.5% and 5.5%) Return | 2020 | 9      | 1000024202 |
+      | ReturnDocument              | Year | Period | Tin        | Arn  | Taxtype                       | Nill |
+#      | CIT Return (Provisional)    | 2020 | 1      | 1000009475 | CIRP  | Company Income Tax            |      |
+#      | CIT Return (Final)          | 2020 | 1      | 1000009874 | CIRT  | Company Income Tax            |      |
+      | CGT Return                  |      |        | 1000062805 | CGTR | Capital Gains Tax             |      |
+#      | PIT Return (Provisional)    | 2020 | 1      | 1000009688 | PIRP  | Personal Income Tax           |      |
+#      | PIT Return (Final)          | 2020 | 1      | 1000010074 | PIRF  | Personal Income Tax           |      |
+      | Excise Tax Return           | 2020 | 1      | 1000063003 | ETRR | Excise Tax                    |      |
+      | FTT Return                  | 2020 | 1      | 1000062805 | FTTR | Foreign Travel Tax            |      |
+#      | GST Return                  | 2020 | 9      | 1000009475 | GSTR  | Goods and Services Tax        |      |
+#      | PAYE Returns                | 2020 | 9      | 1000009475 | PAYER | Pay As You Earn               |      |
+      | Payroll Tax Return          | 2020 | 1      | 1000062805 | PTRR | Payroll Tax                   |      |
+      | Rental income Return        | 2020 | 1      | 1000062805 | RITR | Rental Income Tax             |      |
+      | WHT (10.5% and 5.5%) Return | 2020 | 1      | 1000062805 | WHT  | Withholding Tax(5.5% & 10.5%) |      |
+
 
   @SUC:09-10  @UAT_M4-10-03 @BR01
   Scenario Outline: UAT_M4-10-03 Verify the Process of Data Errors
@@ -57,22 +61,22 @@ Feature: [SUC:09-10] Adjust Tax Return
       | PAYE Returns   |
 #      | Domestic VAT Return |
 
-  @SUC:09-10  @UAT_M4-10-04
-  Scenario Outline: UAT_M4-10-04 Verify the Process of Save With Errors
-    Then Select return document as "<ReturnDocument>"
-    Then Click next "FormSelection:nextReturnButton"
-    Then Enter tin as "" and period number as "" and year as ""
-    Then Click search
-    Then Click table column "//*[@id='SearchForm:resultsDataTable_data']/tr[1]"
-    Then Click continue "SearchForm:j_id14"
-    Then Fill in declaration fields name as "Dr Wangari>?{}+_))jHJ&", designation as "Agricultural Engineer", declaration date as "09/01/2020" for taxtype "<ReturnDocument>"
-    Then Click Submit: xpath "//*[@id='FlexibleFormEntity:save']"
-    Then Verify save with errors button is displayed
-    Then Click Save with errors
-    Then Verify save success message "Record successfully saved with reference number"
-    Examples:
-      | ReturnDocument |
-      | PAYE Returns   |
+#  @SUC:09-10  @UAT_M4-10-04
+#  Scenario Outline: UAT_M4-10-04 Verify the Process of Save With Errors
+#    Then Select return document as "<ReturnDocument>"
+#    Then Click next "FormSelection:nextReturnButton"
+#    Then Enter tin as "" and period number as "" and year as ""
+#    Then Click search
+#    Then Click table column "//*[@id='SearchForm:resultsDataTable_data']/tr[1]"
+#    Then Click continue "SearchForm:j_id14"
+#    Then Fill in declaration fields name as "Dr Wangari>?{}+_))jHJ&", designation as "Agricultural Engineer", declaration date as "09/01/2020" for taxtype "<ReturnDocument>"
+#    Then Click Submit: xpath "//*[@id='FlexibleFormEntity:save']"
+#    Then Verify save with errors button is displayed
+#    Then Click Save with errors
+#    Then Verify save success message "Record successfully saved with reference number"
+#    Examples:
+#      | ReturnDocument |
+#      | PAYE Returns   |
 
   @SUC:09-10  @UAT_M4-10-05
   Scenario Outline: UAT_M4-10-05 Verify the Process of Data Not Saved

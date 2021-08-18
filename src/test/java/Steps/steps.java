@@ -29,7 +29,7 @@ import io.cucumber.java.en.Then;
 
 public class steps extends BaseClass {
 
-    public static String ReferenceNumber="PAYER/000001386/2020";
+    public static String ReferenceNumber="CGTR/000002787/2021";
 
     @Before(order = 0)
     public void method1() throws Exception {
@@ -97,10 +97,11 @@ public class steps extends BaseClass {
     }
 
     @And("^Click on return filing and processing > Lodge return$")
-    public void OpenLodgeReturnsLink() {
+    public void OpenLodgeReturnsLink() throws InterruptedException {
 
-        WebDriverWait wait = new WebDriverWait(driver, 20);
+        WebDriverWait wait = new WebDriverWait(driver, 30);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[span='Return Filing and Processing']"))).click();
+        Thread.sleep(1500);
         driver.findElement(By.xpath("//a[span='Lodge Return']")).click();
     }
 
@@ -116,8 +117,8 @@ public class steps extends BaseClass {
     public void OpenReportsLink() {
 
         WebDriverWait wait = new WebDriverWait(driver, 20);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[span='REPORTING']"))).click();
-        driver.findElement(By.xpath("//a[span='REPORTS']")).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[span='Reporting']"))).click();
+        driver.findElement(By.xpath("//a[span='Reports']")).click();
     }
 
     //Verify precense of elements using id
@@ -502,7 +503,7 @@ public class steps extends BaseClass {
             declarantNameLocator = "FlexibleFormEntity:declarantName";
             declarantPositionLocator = "FlexibleFormEntity:declarantPosition";
             declarationDateLocator = "FlexibleFormEntity:declarationDate_input";
-            amendmentReason = "//*[@id=\"FlexibleFormEntity:CITDetailsTab:reasonForAdjustment\"]/div[3]";
+            amendmentReason = "//*[@id=\"FlexibleFormEntity:reasonForAmendment\"]/div[3]";
         }
         if(returnType.equals("CIT Return (Final)")){
             declarantNameLocator = "FlexibleFormEntity:CITDetailsTab:declarantName";
@@ -535,7 +536,6 @@ public class steps extends BaseClass {
 
         if (returnType.equals("Excise Tax Return")) {
 
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"FlexibleFormEntity:nilReturn\"]/div[2]/span"))).click();
             declarantNameLocator = "FlexibleFormEntity:declarantName";
             declarantPositionLocator = "FlexibleFormEntity:declarantPosition";
             declarationDateLocator = "FlexibleFormEntity:declarationDate_input";
@@ -544,7 +544,6 @@ public class steps extends BaseClass {
 
         if (returnType.equals("FTT Return")) {
 
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"FlexibleFormEntity:NilReturn\"]/div[2]/span"))).click();
             declarantNameLocator = "FlexibleFormEntity:DeclarantName";
             declarantPositionLocator = "FlexibleFormEntity:DeclarantPosition";
             declarationDateLocator = "FlexibleFormEntity:DeclarationDate_input";
@@ -591,7 +590,6 @@ public class steps extends BaseClass {
 
         if (returnType.equals("WHT (10.5% and 5.5%) Return")) {
 
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"FlexibleFormEntity:nilReturn\"]/div[2]/span"))).click();
             declarantNameLocator = "FlexibleFormEntity:declarantName";
             declarantPositionLocator = "FlexibleFormEntity:declarantDesignation";
             declarationDateLocator = "FlexibleFormEntity:declarationDate_input";
@@ -648,10 +646,11 @@ public class steps extends BaseClass {
 
     }
 
-    @Then("^Fill in declaration fields \"([^\"]*)\"$")
-    public void fill_in_declaration_fields(String returnType) throws Throwable {
+    @Then("^Fill in declaration fields \"([^\"]*)\" considering if nill return is applicable \"([^\"]*)\"$")
+    public void sssssssfill_in_declaration_fields(String returnType,String nill) throws Throwable {
 
         WebDriverWait wait = new WebDriverWait(driver,50);
+        Thread.sleep(5000);
         String declarantNameLocator = "";
         String declarantPositionLocator = "";
         String declarationDateLocator = "";
@@ -767,7 +766,9 @@ public class steps extends BaseClass {
 
         }
         if (returnType.equals("PAYE Returns")) {
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"FlexibleFormEntity:nillReturn\"]/div[2]/span"))).click();
+            if(!nill.isEmpty()){
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"FlexibleFormEntity:nillReturn\"]/div[2]/span"))).click();
+            }
             declarantNameLocator = "FlexibleFormEntity:declarantName";
             declarantPositionLocator = "FlexibleFormEntity:declarantDesignation";
             declarationDateLocator = "FlexibleFormEntity:declarationDate_input";
@@ -775,8 +776,9 @@ public class steps extends BaseClass {
         }
 
         if (returnType.equals("Excise Tax Return")) {
-
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"FlexibleFormEntity:nilReturn\"]/div[2]/span"))).click();
+            if(!nill.isEmpty()){
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"FlexibleFormEntity:nilReturn\"]/div[2]/span"))).click();
+            }
             declarantNameLocator = "FlexibleFormEntity:declarantName";
             declarantPositionLocator = "FlexibleFormEntity:declarantPosition";
             declarationDateLocator = "FlexibleFormEntity:declarationDate_input";
@@ -784,7 +786,9 @@ public class steps extends BaseClass {
 
         if (returnType.equals("FTT Return")) {
 
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"FlexibleFormEntity:NilReturn\"]/div[2]/span"))).click();
+            if(!nill.isEmpty()){
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"FlexibleFormEntity:NilReturn\"]/div[2]/span"))).click();
+            }
             declarantNameLocator = "FlexibleFormEntity:DeclarantName";
             declarantPositionLocator = "FlexibleFormEntity:DeclarantPosition";
             declarationDateLocator = "FlexibleFormEntity:DeclarationDate_input";
@@ -792,7 +796,10 @@ public class steps extends BaseClass {
 
         if (returnType.equals("GST Return")) {
 
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"FlexibleFormEntity:nilReturn\"]/div[2]/span"))).click();
+
+            if(!nill.isEmpty()){
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"FlexibleFormEntity:nilReturn\"]/div[2]/span"))).click();
+            }
             driver.findElement(By.id("FlexibleFormEntity:attachmentTable:j_id1")).click();
             WebElement Iframe = wait.until(ExpectedConditions.visibilityOfElementLocated(By.tagName("iframe")));
             driver.switchTo().frame(Iframe);
@@ -909,7 +916,7 @@ public class steps extends BaseClass {
             driver.findElement(By.id("FlexbleFormAttachment:Ok")).click();
             driver.switchTo().defaultContent();
 
-            Thread.sleep(1000);
+            Thread.sleep(6000);
             driver.findElement(By.xpath("//a[contains(text(),'PERSONAL DETAILS')]")).click();
 
 
@@ -931,18 +938,25 @@ public class steps extends BaseClass {
             declarantNameLocator = "FlexibleFormEntity:declarantName";
             declarantPositionLocator = "FlexibleFormEntity:declarantDesignation";
             declarationDateLocator = "FlexibleFormEntity:declarationDate_input";
+            if(!nill.isEmpty()){
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"FlexibleFormEntity:nilReturn\"]/div[2]/span"))).click();
+            }
         }
 
         if (returnType.equals("Rental income Return")) {
             declarantNameLocator = "FlexibleFormEntity:declarantName";
             declarantPositionLocator = "FlexibleFormEntity:declarantPosition";
             declarationDateLocator = "FlexibleFormEntity:declarationDate_input";
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"FlexibleFormEntity:NilReturn\"]/div[2]/span"))).click();
+            if(!nill.isEmpty()){
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"FlexibleFormEntity:NilReturn\"]/div[2]/span"))).click();
+            }
         }
 
         if (returnType.equals("WHT (10.5% and 5.5%) Return")) {
 
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"FlexibleFormEntity:nilReturn\"]/div[2]/span"))).click();
+            if(!nill.isEmpty()){
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"FlexibleFormEntity:nilReturn\"]/div[2]/span"))).click();
+            }
             declarantNameLocator = "FlexibleFormEntity:declarantName";
             declarantPositionLocator = "FlexibleFormEntity:declarantDesignation";
             declarationDateLocator = "FlexibleFormEntity:declarationDate_input";
@@ -1007,7 +1021,7 @@ public class steps extends BaseClass {
 
     @Then("^Switch to frame$")
     public void shift_focus_to_frame() throws Throwable {
-        WebDriverWait wait = new WebDriverWait(driver, 300);
+        WebDriverWait wait = new WebDriverWait(driver, 60);
         WebElement Iframe = wait.until(ExpectedConditions.visibilityOfElementLocated(By.tagName("iframe")));
         driver.switchTo().frame(Iframe);
     }
@@ -1102,7 +1116,8 @@ public class steps extends BaseClass {
 
     @Then("^Click search button \"([^\"]*)\"$")
     public void click_search_button(String searchID) throws Throwable {
-        WebDriverWait wait = new WebDriverWait(driver, 10);
+        Thread.sleep(2500);
+        WebDriverWait wait = new WebDriverWait(driver, 30);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(searchID))).click();
     }
 
@@ -1127,13 +1142,18 @@ public class steps extends BaseClass {
         driver.findElement(By.id("ReturnsLodgement:id_Liability_input")).sendKeys(liability);
     }
 
-    @Then("^Enter liability as \"([^\"]*)\" and date of lodgement as \"([^\"]*)\"$")
-    public void enter_liability_and_date_of_lodgement(String liability, String date) throws Throwable {
+    @Then("^Enter liability as \"([^\"]*)\" and date of lodgement as \"([^\"]*)\" for return status \"([^\"]*)\"$")
+    public void enter_liability_and_date_of_lodgement(String liability, String date, String nill) throws Throwable {
         Thread.sleep(5000);
         WebDriverWait wait = new WebDriverWait(driver,30);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ReturnsLodgement:id_Liability_input"))).clear();
 
-        driver.findElement(By.id("ReturnsLodgement:id_Liability_input")).sendKeys(liability);
+        if(nill.isEmpty()){
+            driver.findElement(By.id("ReturnsLodgement:id_Liability_input")).sendKeys(liability);
+        }
+        else{
+            driver.findElement(By.xpath("//*[@id=\"ReturnsLodgement:id_NilReturn\"]/div[2]/span")).click();
+        }
 
         if (date.length() > 1) {
             if(date.equalsIgnoreCase("today")){
@@ -1744,10 +1764,52 @@ public class steps extends BaseClass {
         WebElement successMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'" + arn + "')]")));
         String text  = successMessage.getText();
         System.out.println(text);
-        System.out.println("substring is "+ text.substring(53));
-        ReferenceNumber =text.substring(53);
+        System.out.println("substring is "+ text.substring(54));
+        ReferenceNumber =text.substring(54);
         //Returns Lodgement is Successful with Reference Number FTTR/000002727/2021
         System.out.println(ReferenceNumber);
+        if (successMessage.isDisplayed()) {
+            System.out.println("ARN ('" + arn + "') is valid");
+            Assert.assertTrue(true);
+        } else {
+            Assert.fail("ARN invalid");
+        }
+    }
+
+    @Then("Verify and obtain ARN for file {string}")
+    public void verifyAndObtainARNForFile(String arn) {
+        WebDriverWait wait = new WebDriverWait(driver,60);
+        WebElement successMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'" + arn + "')]")));
+        String text  = successMessage.getText();
+        System.out.println(text);
+        System.out.println("substring is "+ text.substring(48));
+        ReferenceNumber =text.substring(48);
+        //Record successfully saved with reference number PAYER/000001507/2020
+        System.out.println(ReferenceNumber);
+        if (successMessage.isDisplayed()) {
+            System.out.println("ARN ('" + arn + "') is valid");
+            Assert.assertTrue(true);
+        } else {
+            Assert.fail("ARN invalid");
+        }
+    }
+
+    @Then("Verify ARN {string}")
+    public void verifyARNForAdjust(String arn) {
+        WebDriverWait wait = new WebDriverWait(driver,60);
+        WebElement successMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'" + arn + "')]")));
+        if (successMessage.isDisplayed()) {
+            System.out.println("ARN ('" + arn + "') is valid");
+            Assert.assertTrue(true);
+        } else {
+            Assert.fail("ARN invalid");
+        }
+    }
+
+    @Then("Verify ARN for cancel {string}")
+    public void verifyARNForCancel(String arn) {
+        WebDriverWait wait = new WebDriverWait(driver,60);
+        WebElement successMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'" + arn + "')]")));
         if (successMessage.isDisplayed()) {
             System.out.println("ARN ('" + arn + "') is valid");
             Assert.assertTrue(true);
@@ -1782,17 +1844,162 @@ public class steps extends BaseClass {
     }
 
 
-    @Then("Verify taxtype data is shown in table {string}")
-    public void verifyTaxtypeDataIsShownInTable(String taxtype) {
-        WebDriverWait wait = new WebDriverWait(driver,60);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"AccountEnquiry:periodicTable_data\"]/tr[1]/td[1]/div"))).click();
-        WebElement successMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[contains(text(),'" + taxtype + "')]")));
+    @Then("Verify taxtype {string} and status {string} is shown in table for {string}")
+    public void verifyTaxtypeAndStatusIsShownInTableFor(String taxtype, String status, String returnType) {
+        WebDriverWait wait = new WebDriverWait(driver,30);
 
-        if (successMessage.isDisplayed()) {
-            System.out.println("Taxtype ('" + taxtype + "') is shown");
-            Assert.assertTrue(true);
-        } else {
-            Assert.fail("Taxtype not shown");
+
+        if(returnType.equals("CIT Return (Final)")){
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"AccountEnquiry:periodicTable_data\"]/tr[1]/td[1]/div"))).click();
+
+            if(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[contains(text(),'CIT Return (Final)')]"))).isDisplayed()){
+                System.out.println(returnType+" has been displayed");
+            }
+            if(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[contains(text(),'" + status + "')]"))).isDisplayed()){
+                System.out.println(status+" status has been displayed");
+            }
+            if(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(text(),'"+ReferenceNumber+"')]"))).isDisplayed()){
+                System.out.println(ReferenceNumber+" reference number has been displayed");
+            }
+        }
+        if(returnType.equals("CIT Return (Provisional)")){
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"AccountEnquiry:periodicTable_data\"]/tr[1]/td[1]/div"))).click();
+            if(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[contains(text(),'CIT Return (Provisional)')]"))).isDisplayed()){
+                System.out.println(returnType+" has been displayed");
+            }
+            if(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[contains(text(),'" + status + "')]"))).isDisplayed()){
+                System.out.println(status+" status has been displayed");
+            }
+            if(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(text(),'"+ReferenceNumber+"')]"))).isDisplayed()){
+                System.out.println(ReferenceNumber+" reference number has been displayed");
+            }
+        }
+        if(returnType.equals("Capital Gains Tax Return")){
+            if(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[contains(text(),'Capital Gains Tax Return')]"))).isDisplayed()){
+                System.out.println(returnType+" has been displayed");
+            }
+            if(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[contains(text(),'" + status + "')]"))).isDisplayed()){
+                System.out.println(status+" status has been displayed");
+            }
+            if(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(text(),'"+ReferenceNumber+"')]"))).isDisplayed()){
+                System.out.println(ReferenceNumber+" reference number has been displayed");
+            }
+        }
+        if (returnType.equals("PAYE Returns")) {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"AccountEnquiry:periodicTable_data\"]/tr[1]/td[1]/div"))).click();
+            if(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[contains(text(),'PAYE Returns')]"))).isDisplayed()){
+                System.out.println(returnType+" has been displayed");
+            }
+            if(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[contains(text(),'" + status + "')]"))).isDisplayed()){
+                System.out.println(status+" status has been displayed");
+            }
+            if(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(text(),'"+ReferenceNumber+"')]"))).isDisplayed()){
+                System.out.println(ReferenceNumber+" reference number has been displayed");
+            }
+        }
+
+        if (returnType.equals("Excise Tax Return")) {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"AccountEnquiry:periodicTable_data\"]/tr[1]/td[1]/div"))).click();
+            if(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[contains(text(),'Excise Tax Return')]"))).isDisplayed()){
+                System.out.println(returnType+" has been displayed");
+            }
+            if(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[contains(text(),'" + status + "')]"))).isDisplayed()){
+                System.out.println(status+" status has been displayed");
+            }
+            if(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(text(),'"+ReferenceNumber+"')]"))).isDisplayed()){
+                System.out.println(ReferenceNumber+" reference number has been displayed");
+            }
+        }
+
+        if (returnType.equals("FTT Return")) {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"AccountEnquiry:periodicTable_data\"]/tr[1]/td[1]/div"))).click();
+            if(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[contains(text(),'FTT Return')]"))).isDisplayed()){
+                System.out.println(returnType+" has been displayed");
+            }
+            if(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[contains(text(),'" + status + "')]"))).isDisplayed()){
+                System.out.println(status+" status has been displayed");
+            }
+            if(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(text(),'"+ReferenceNumber+"')]"))).isDisplayed()){
+                System.out.println(ReferenceNumber+" reference number has been displayed");
+            }
+        }
+
+        if (returnType.equals("GST Return")) {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"AccountEnquiry:periodicTable_data\"]/tr[1]/td[1]/div"))).click();
+            if(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[contains(text(),'GST Return')]"))).isDisplayed()){
+                System.out.println(returnType+" has been displayed");
+            }
+            if(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[contains(text(),'" + status + "')]"))).isDisplayed()){
+                System.out.println(status+" status has been displayed");
+            }
+            if(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(text(),'"+ReferenceNumber+"')]"))).isDisplayed()){
+                System.out.println(ReferenceNumber+" reference number has been displayed");
+            }
+        }
+
+        if (returnType.equals("PIT Return (Final)")) {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"AccountEnquiry:periodicTable_data\"]/tr[1]/td[1]/div"))).click();
+            if(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[contains(text(),'PIT Return (Final)')]"))).isDisplayed()){
+                System.out.println(returnType+" has been displayed");
+            }
+            if(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[contains(text(),'" + status + "')]"))).isDisplayed()){
+                System.out.println(status+" status has been displayed");
+            }
+            if(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(text(),'"+ReferenceNumber+"')]"))).isDisplayed()){
+                System.out.println(ReferenceNumber+" reference number has been displayed");
+            }
+        }
+
+        if (returnType.equals("PIT Return (Provisional)")) {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"AccountEnquiry:periodicTable_data\"]/tr[1]/td[1]/div"))).click();
+            if(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[contains(text(),'PIT Return (Provisional)')]"))).isDisplayed()){
+                System.out.println(returnType+" has been displayed");
+            }
+            if(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[contains(text(),'" + status + "')]"))).isDisplayed()){
+                System.out.println(status+" status has been displayed");
+            }
+            if(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(text(),'"+ReferenceNumber+"')]"))).isDisplayed()){
+                System.out.println(ReferenceNumber+" reference number has been displayed");
+            }
+        }
+
+        if (returnType.equals("Payroll Tax Return")) {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"AccountEnquiry:periodicTable_data\"]/tr[1]/td[1]/div"))).click();
+            if(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[contains(text(),'Payroll Tax Return')]"))).isDisplayed()){
+                System.out.println(returnType+" has been displayed");
+            }
+            if(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[contains(text(),'" + status + "')]"))).isDisplayed()){
+                System.out.println(status+" status has been displayed");
+            }
+            if(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(text(),'"+ReferenceNumber+"')]"))).isDisplayed()){
+                System.out.println(ReferenceNumber+" reference number has been displayed");
+            }
+        }
+
+        if (returnType.equals("Rental income Return")) {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"AccountEnquiry:periodicTable_data\"]/tr[1]/td[1]/div"))).click();
+            if(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[contains(text(),'Rental income Return')]"))).isDisplayed()){
+                System.out.println(returnType+" has been displayed");
+            }
+            if(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[contains(text(),'" + status + "')]"))).isDisplayed()){
+                System.out.println(status+" status has been displayed");
+            }
+            if(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(text(),'"+ReferenceNumber+"')]"))).isDisplayed()){
+                System.out.println(ReferenceNumber+" reference number has been displayed");
+            }
+        }
+
+        if (returnType.equals("WHT (10.5% and 5.5%) Return")) {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"AccountEnquiry:periodicTable_data\"]/tr/td[1]/div"))).click();
+            if(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[contains(text(),'WHT (10.5% and 5.5%) Return')]"))).isDisplayed()){
+                System.out.println(returnType+" has been displayed");
+            }
+            if(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[contains(text(),'" + status + "')]"))).isDisplayed()){
+                System.out.println(status+" status has been displayed");
+            }
+            if(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(text(),'"+ReferenceNumber+"')]"))).isDisplayed()){
+                System.out.println(ReferenceNumber+" reference number has been displayed");
+            }
         }
     }
 
@@ -1811,15 +2018,14 @@ public class steps extends BaseClass {
 
     @Then("Click on case")
     public void clickOnCase() {
-        WebDriverWait wait = new WebDriverWait(driver,60);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"AccountEnquiry:periodicTable_data\"]/tr[1]/td[1]/div"))).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(text(),'" + ReferenceNumber + "')]"))).click();
+        WebDriverWait wait = new WebDriverWait(driver,10);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(text(),'"+ReferenceNumber+"')]"))).click();
     }
 
     @Then("Verify lodgement screen has data")
     public void verifyLodgementScreenHasData() {
         WebDriverWait wait = new WebDriverWait(driver,60);
-        String tin = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ReturnsLodgement:id_Tin"))).getText();
+        String tin = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ReturnsLodgement:id_Tin"))).getAttribute("value");
         if(tin.isEmpty()){
             Assert.fail("Field does not contain any data");
         }
@@ -1827,4 +2033,71 @@ public class steps extends BaseClass {
             Assert.assertTrue("Field contains data",!tin.isEmpty());
         }
     }
+
+
+    @Then("Verify file returns screen has data for {string}")
+    public void verifyFileReturnsScreenHasData(String returnType) {
+
+        WebDriverWait wait = new WebDriverWait(driver,20);
+        String declarantNameLocator = "";
+
+        if(returnType.equals("Capital Gains Tax Return")){
+            declarantNameLocator = "FlexibleFormEntity:declarantName";
+        }
+        if(returnType.equals("CIT Return (Final)")){
+            declarantNameLocator = "FlexibleFormEntity:CITDetailsTab:declarantName";
+        }
+        if(returnType.equals("CIT Return (Provisional)")){
+            declarantNameLocator = "FlexibleFormEntity:declarantName";
+        }
+        if (returnType.equals("PAYE Returns")) {
+            declarantNameLocator = "FlexibleFormEntity:declarantName";
+        }
+
+        if (returnType.equals("Excise Tax Return")) {
+            declarantNameLocator = "FlexibleFormEntity:declarantName";
+        }
+
+        if (returnType.equals("FTT Return")) {
+            declarantNameLocator = "FlexibleFormEntity:DeclarantName";
+        }
+
+        if (returnType.equals("GST Return")) {
+            declarantNameLocator = "FlexibleFormEntity:declarantName";
+        }
+
+        if (returnType.equals("PIT Return (Final)")) {
+            declarantNameLocator = "FlexibleFormEntity:pitShowTab:declarantName";
+        }
+
+        if (returnType.equals("PIT Return (Provisional)")) {
+            declarantNameLocator = "FlexibleFormEntity:declarantName";
+        }
+
+        if (returnType.equals("Payroll Tax Return")) {
+            declarantNameLocator = "FlexibleFormEntity:declarantName";
+        }
+
+        if (returnType.equals("Rental income Return")) {
+            declarantNameLocator = "FlexibleFormEntity:declarantName";
+        }
+        if (returnType.equals("WHT (10.5% and 5.5%) Return")) {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"FlexibleFormEntity:nilReturn\"]/div[2]/span"))).click();
+            declarantNameLocator = "FlexibleFormEntity:declarantName";
+        }
+        if (returnType.equals("CGT Return")){
+            declarantNameLocator = "FlexibleFormEntity:declarantName";
+        }
+
+        String name = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(declarantNameLocator))).getAttribute("value");
+        if(name.isEmpty()){
+            Assert.fail("Field does not contain any data");
+        }
+        else{
+            Assert.assertTrue("Field contains data",!name.isEmpty());
+        }
+    }
+
+
+
 }

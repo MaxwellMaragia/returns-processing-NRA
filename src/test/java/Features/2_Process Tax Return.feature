@@ -12,24 +12,31 @@ Feature: [SUC:09-06]-Process Tax Return
     Then Click search
 #    Then Click table column "//*[@id='SearchForm:resultsDataTable_data']/tr[1]/td[7]"
 #    Then Click continue "SearchForm:j_id14"
-    Then Fill in declaration fields "<ReturnDocument>"
+    Then Fill in declaration fields "<ReturnDocument>" considering if nill return is applicable "<Nill>"
     Then Click Submit: xpath "//*[@id='FlexibleFormEntity:save']"
     Then Verify save success message "Record successfully saved with reference number"
-
+    Then Verify and obtain ARN for file "<Arn>"
+    Then go to taxpayer accounting > taxpayer account inquiry
+    Then Search for tin "<Tin>"
+    Then Search for taxtype "<Taxtype>"
+    Then Verify taxtype "<Taxtype>" and status "Posted" is shown in table for "<ReturnDocument>"
+    Then Click on case
+    Then Verify file returns screen has data for "<ReturnDocument>"
     Examples:
-      | ReturnDocument              | Year | Period | Tin        |
-#      | CIT Return (Provisional)    | 2020 | 1      | 1000025802 |
-#      | CIT Return (Final)          | 2020 | 1      | 1000026000 |
-#      | Capital Gains Tax Return    |      |        | 1000024202 |
-#      | Excise Tax Return           | 2020 | 10     | 1000024202 |
-#      | FTT Return                  | 2020 | 10     | 1000024202 |
-      | GST Return                  | 2020 | 9      | 1000030601 |
-      | PAYE Returns                | 2020 | 9      | 1000030601 |
-#      | PIT Return (Provisional)    | 2020 | 1      | 1000024202 |
-#      | PIT Return (Final)          | 2020 | 1      | 1000025004 |
-#      | Payroll Tax Return          | 2020 | 9      | 1000024202 |
-#      | Rental income Return        | 2020 | 9      | 1000024202 |
-#      | WHT (10.5% and 5.5%) Return | 2020 | 9      | 1000024202 |
+      | ReturnDocument              | Year | Period | Tin        | Arn  | Taxtype                       | Nill |
+#      | CIT Return (Provisional)    | 2020 | 1      | 1000009475 | CIRP  | Company Income Tax            |      |
+#      | CIT Return (Final)          | 2020 | 1      | 1000009874 | CIRT  | Company Income Tax            |      |
+      | CGT Return                  |      |        | 1000062805 | CGTR | Capital Gains Tax             |      |
+#      | PIT Return (Provisional)    | 2020 | 1      | 1000009688 | PIRP  | Personal Income Tax           |      |
+#      | PIT Return (Final)          | 2020 | 1      | 1000010074 | PIRF  | Personal Income Tax           |      |
+      | Excise Tax Return           | 2020 | 1      | 1000063003 | ETRR | Excise Tax                    |      |
+      | FTT Return                  | 2020 | 1      | 1000062805 | FTTR | Foreign Travel Tax            |      |
+#      | GST Return                  | 2020 | 9      | 1000009475 | GSTR  | Goods and Services Tax        |      |
+#      | PAYE Returns                | 2020 | 9      | 1000009475 | PAYER | Pay As You Earn               |      |
+      | Payroll Tax Return          | 2020 | 1      | 1000062805 | PTRR | Payroll Tax                   |      |
+      | Rental income Return        | 2020 | 1      | 1000062805 | RITR | Rental Income Tax             |      |
+      | WHT (10.5% and 5.5%) Return | 2020 | 1      | 1000062805 | WHT  | Withholding Tax(5.5% & 10.5%) |      |
+
 
 
 #  @SUC:09-06 @UAT_M4-06-02

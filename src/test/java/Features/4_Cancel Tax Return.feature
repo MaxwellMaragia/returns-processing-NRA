@@ -1,13 +1,12 @@
 Feature: [SUC:09-11] Cancel Tax Return
 
-  Background:
+
+  @SUC:09-11 @UAT_M4-11-01 @UAT_M4-11-02 @UAT_M4-08-03 @BR04 @sanity
+  Scenario Outline: UAT_M4-11-02 Verify the Process of Return Cancellation (<ReturnDocument>)
     Given Open trips URL
     Then Login as Revenue Officer
       | tripsuser | Passw0rd |
     And Click returns filing and processing > cancel return
-
-  @SUC:09-11 @UAT_M4-11-01 @UAT_M4-11-02 @UAT_M4-08-03 @BR04 @sanity
-  Scenario Outline: UAT_M4-11-02 Verify the Process of Return Cancellation (<ReturnDocument>)
     Then Select return document as "<ReturnDocument>"
     Then Click next "FormSelection:nextReturnButton"
     Then Enter tin as "<Tin>" and period number as "<Period>" and year as "<Year>"
@@ -19,6 +18,7 @@ Feature: [SUC:09-11] Cancel Tax Return
     Then Click yes
     Then Verify save success message "Tax return has successfully saved.The status is now pending cancellation"
     Then Obtain reference number for cancellation "Tax return has successfully saved.The status is now pending cancellation"
+    Then Verify ARN for cancel "<Arn>"
     Given Open CRM URL for Returns Module
     And Close Popup Window
     And Click on Case management dropdown
@@ -30,21 +30,33 @@ Feature: [SUC:09-11] Cancel Tax Return
     And clicks Approve from the dropdown
     And click save on returns
     Then Application Tax return Adjustment status should be "Approved"
+    Given Open trips URL
+    Then go to taxpayer accounting > taxpayer account inquiry
+    Then Search for tin "<Tin>"
+    Then Search for taxtype "<Taxtype>"
+    Then Verify taxtype "<Taxtype>" and status "Cancelled" is shown in table for "<ReturnDocument>"
     Examples:
-      | ReturnDocument              | Year | Period | Tin        |
-#      | CIT Return (Final)          | 2020 | 1      | 1000026000 |
-#      | Capital Gains Tax Return    |      |        | 1000024202 |
-#      | Excise Tax Return           | 2020 | 10     | 1000024202 |
-#      | FTT Return                  | 2020 | 10     | 1000024202 |
-      | GST Return                  | 2020 | 9      | 1000030601 |
-      | PAYE Returns                | 2020 | 9      | 1000030601 |
-#      | PIT Return (Final)          | 2020 | 1      | 1000025004 |
-#      | Payroll Tax Return          | 2020 | 9      | 1000024202 |
-#      | Rental income Return        | 2020 | 9      | 1000024202 |
-#      | WHT (10.5% and 5.5%) Return | 2020 | 9      | 1000024202 |
+      | ReturnDocument              | Year | Period | Tin        | Arn  | Taxtype                       | Nill |
+#      | CIT Return (Provisional)    | 2020 | 1      | 1000009475 | CIRP  | Company Income Tax            |      |
+#      | CIT Return (Final)          | 2020 | 1      | 1000009874 | CIRT  | Company Income Tax            |      |
+      | CGT Return                  |      |        | 1000062805 | CGTR | Capital Gains Tax             |      |
+#      | PIT Return (Provisional)    | 2020 | 1      | 1000009688 | PIRP  | Personal Income Tax           |      |
+#      | PIT Return (Final)          | 2020 | 1      | 1000010074 | PIRF  | Personal Income Tax           |      |
+      | Excise Tax Return           | 2020 | 1      | 1000063003 | ETRR | Excise Tax                    |      |
+      | FTT Return                  | 2020 | 1      | 1000062805 | FTTR | Foreign Travel Tax            |      |
+#      | GST Return                  | 2020 | 9      | 1000009475 | GSTR  | Goods and Services Tax        |      |
+#      | PAYE Returns                | 2020 | 9      | 1000009475 | PAYER | Pay As You Earn               |      |
+      | Payroll Tax Return          | 2020 | 1      | 1000062805 | PTRR | Payroll Tax                   |      |
+      | Rental income Return        | 2020 | 1      | 1000062805 | RITR | Rental Income Tax             |      |
+      | WHT (10.5% and 5.5%) Return | 2020 | 1      | 1000062805 | WHT  | Withholding Tax(5.5% & 10.5%) |      |
+
 
   @SUC:09-11 @UAT_M4-11-03
   Scenario Outline: UAT_M4-11-03 Verify the Process of Abandon Process
+    Given Open trips URL
+    Then Login as Revenue Officer
+      | tripsuser | Passw0rd |
+    And Click returns filing and processing > cancel return
     Then Select return document as "<ReturnDocument>"
     Then Click next "FormSelection:nextReturnButton"
     Then Enter tin as "" and period number as "" and year as ""
@@ -60,6 +72,10 @@ Feature: [SUC:09-11] Cancel Tax Return
 
   @SUC:09-11 @UAT_M4-11-04 @BR03
   Scenario Outline: UAT_M4-11-04 Verify the Process of Cancel Abandon
+    Given Open trips URL
+    Then Login as Revenue Officer
+      | tripsuser | Passw0rd |
+    And Click returns filing and processing > cancel return
     Then Select return document as "<ReturnDocument>"
     Then Click next "FormSelection:nextReturnButton"
     Then Enter tin as "" and period number as "" and year as ""
@@ -75,6 +91,10 @@ Feature: [SUC:09-11] Cancel Tax Return
 
   @SUC:09-11 @UAT_M4-11-05 @BR01
   Scenario Outline: UAT_M4-11-05 Verify the Process of Validation error
+    Given Open trips URL
+    Then Login as Revenue Officer
+      | tripsuser | Passw0rd |
+    And Click returns filing and processing > cancel return
     Then Select return document as "<ReturnDocument>"
     Then Click next "FormSelection:nextReturnButton"
     Then Enter tin as "" and period number as "" and year as ""

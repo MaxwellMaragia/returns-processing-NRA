@@ -33,7 +33,7 @@ public class hooks extends BaseClass {
 
     {
 
-        //driver.close();
+        driver.close();
         System.out.println("Completed execution for the scenario :" + scenario.getName());
 
     }
